@@ -4,21 +4,20 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.7.2</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<groupId>dev.leoduarte.api.leo.implementation</groupId>
+		<artifactId>api-leo-parent</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 
-	<groupId>dev.leoduarte.api.leo.app-test</groupId>
 	<artifactId>app-test</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<packaging>jar</packaging>
 	<name>${project.description} :: App-Test</name>
 
 	<dependencies>
 		<!-- This dependency is only here to ensure that the Docker image for the service is build before the tests are executed -->
 		<dependency>
-			<groupId>dev.leoduarte.api.leo.app</groupId>
+			<groupId>dev.leoduarte.api.leo.implementation</groupId>
 			<artifactId>app</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 			<exclusions>
@@ -31,26 +30,28 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter</artifactId>
+			<version>${org.springframework.boot.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
+			<version>${org.springframework.boot.version}</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
 
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-failsafe-plugin</artifactId>
-				<!--				<configuration>-->
-				<!--					<includes>-->
-				<!--						<include>IntegrationTestSuite.java</include>-->
-				<!--					</includes>-->
-				<!--				</configuration>-->
-			</plugin>
-		</plugins>
-	</build>
+<!--	<build>-->
+<!--		<plugins>-->
+<!--			<plugin>-->
+<!--				<groupId>org.apache.maven.plugins</groupId>-->
+<!--				<artifactId>maven-failsafe-plugin</artifactId>-->
+<!--				<configuration>-->
+<!--					<includes>-->
+<!--						<include>IntegrationTestSuite.java</include>-->
+<!--					</includes>-->
+<!--				</configuration>-->
+<!--			</plugin>-->
+<!--		</plugins>-->
+<!--	</build>-->
 
 </project>

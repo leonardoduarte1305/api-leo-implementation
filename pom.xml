@@ -18,6 +18,7 @@
 	<modules>
 		<module>app</module>
 		<module>app-test</module>
+		<module>app-test-support</module>
 	</modules>
 
 	<scm>
