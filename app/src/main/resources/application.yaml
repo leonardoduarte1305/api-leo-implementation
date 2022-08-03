@@ -1,0 +1,21 @@
+server:
+  port: 8383
+spring:
+  config:
+    activate:
+      on-profile: default
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/dbDev?allowPublicKeyRetrieval=true&useSSL=false
+    username: root
+    password: securePassword
+    #JPA Configs
+  jpa:
+    hibernate:
+      ddl-auto: update
+    defer-datasource-initialization: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+      format_sql: true
+      show_sql: true

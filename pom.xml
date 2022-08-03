@@ -39,7 +39,7 @@
 
 		<org.springframework.boot.version>2.7.0</org.springframework.boot.version>
 		<jacoco.maven.plugin.version>0.8.8</jacoco.maven.plugin.version>
-		<mapstruct.version>1.5.2.Final</mapstruct.version>
+		<org.mapstruct.version>1.5.2.Final</org.mapstruct.version>
 		<org.projectlombok.version>1.18.24</org.projectlombok.version>
 		<validation.api.version>2.0.1.Final</validation.api.version>
 
@@ -78,6 +78,11 @@
 				<version>${org.springframework.boot.version}</version>
 				<optional>true</optional>
 			</dependency>
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-jdbc</artifactId>
+				<version>${org.springframework.boot.version}</version>
+			</dependency>
 
 			<!-- Test Dependencies -->
 			<dependency>
@@ -88,6 +93,15 @@
 			</dependency>
 
 			<!-- Third party Dependencies -->
+			<dependency>
+				<groupId>com.h2database</groupId>
+				<artifactId>h2</artifactId>
+			</dependency>
+			<dependency>
+				<groupId>mysql</groupId>
+				<artifactId>mysql-connector-java</artifactId>
+				<scope>runtime</scope>
+			</dependency>
 			<dependency>
 				<groupId>org.projectlombok</groupId>
 				<artifactId>lombok</artifactId>
@@ -138,7 +152,7 @@
 							<path>
 								<groupId>org.mapstruct</groupId>
 								<artifactId>mapstruct-processor</artifactId>
-								<version>${mapstruct.version}</version>
+								<version>${org.mapstruct.version}</version>
 							</path>
 						</annotationProcessorPaths>
 						<compilerArgs>
