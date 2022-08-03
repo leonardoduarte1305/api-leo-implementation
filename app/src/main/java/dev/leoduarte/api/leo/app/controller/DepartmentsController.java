@@ -16,9 +16,10 @@ import dev.leoduarte.api.leo.app.service.DepartmentService;
 import dev.leoduarte.model.Department;
 import dev.leoduarte.model.DepartmentCreation;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 @RestController
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class DepartmentsController implements DepartmentsApi {
 
 	private final DepartmentRepository departmentRepository;
@@ -47,11 +48,5 @@ public class DepartmentsController implements DepartmentsApi {
 	@Override
 	public ResponseEntity<Department> updateDepartment(Integer id, @Valid DepartmentCreation departmentCreation) {
 		return null;
-	}
-
-	@Autowired
-	public DepartmentsController(DepartmentRepository departmentRepository, DepartmentService departmentService) {
-		this.departmentRepository = departmentRepository;
-		this.departmentService = departmentService;
 	}
 }
