@@ -21,9 +21,9 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class DepartmentsController implements DepartmentsApi {
 
-	private DepartmentRepository departmentRepository;
-	private DepartmentService departmentService;
-	private ObjectMapper objectMapper = new ObjectMapper();
+	private final DepartmentRepository departmentRepository;
+	private final DepartmentService departmentService;
+	private final ObjectMapper objectMapper = new ObjectMapper();
 
 	@Override public ResponseEntity<Department> createDepartment(@Valid DepartmentCreation departmentCreation) {
 		Department department = objectMapper.convertValue(
