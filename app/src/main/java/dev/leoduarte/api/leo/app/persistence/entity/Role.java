@@ -1,10 +1,11 @@
 package dev.leoduarte.api.leo.app.persistence.entity;
 
-public interface Role {
+public enum Role {
 
-	String MANAGER = "MANAGER";
-	String ADMIN = "ADMIN";
-	String SUPERVISOR = "SUPERVISOR";
-	String USER = "USER";
+	MANAGER,
+	ADMIN,
+	SUPERVISOR;
 
+	// if the role is null it is configured as user
+	public static final Role USER = null;
 }

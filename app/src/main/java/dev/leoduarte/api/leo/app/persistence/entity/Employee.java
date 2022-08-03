@@ -1,54 +1,90 @@
 package dev.leoduarte.api.leo.app.persistence.entity;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.ManyToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import lombok.Getter;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Getter
+@Data
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity(name = "employee")
 public class Employee {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	protected Long id;
+	private Long id;
 
 	@Column
-	protected String name;
+	private String name;
 
-	@Column(unique = true)
-	protected String telephone;
-
-	@ManyToOne
-	@JoinColumn(name = "id")
-	protected Department department;
+	@Column
+	private String telephone;
 
 	@Column(length = 14, unique = true)
-	protected String cpf;
+	private String cpf;
 
-	@Column(unique = true)
-	protected String email;
+	@Column(unique = true, name = "email")
+	private String username;
 
 	@Temporal(TemporalType.DATE)
-	protected Date birthDate;
+	private Date birthDate;
 
 	@Enumerated(value = EnumType.STRING)
-	protected String gender;
+	private Gender gender;
 
-	protected Date registerDate = Calendar.getInstance().getTime();
+	private Date registerDate = Calendar.getInstance().getTime();
 
+	@Column(name = "password")
+	private String password;
+
+	@ManyToMany
+	@JoinColumn(name = "id_department")
+	private List<Department> department;
+
+	@ManyToMany(fetch = FetchType.EAGER)
+	private List<Profile> profiles = new ArrayList<>();
+
+	private void setCpf(String cpf) {
+		if (cpf == null || !cpf.matches("\\d{3}\\.\\d{3}\\.\\d{3}\\-\\d{2}")) {
+			throw new IllegalArgumentException("Invalid CPF.");
+		}
+		this.cpf = cpf;
+	}
+
+	private void setTelephone(String telephone) {
+		if (telephone == null || !telephone.matches("\\d{2}\\ \\d{4,5}\\-\\d{4}")) {
+			throw new IllegalArgumentException("Numero invalido.");
+		}
+		this.telephone = telephone;
+	}
+
+	private void setUsername(String username) {
+		if (username == null || !username.matches("^[a-zA-Z0-9._]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$")) {
+			throw new IllegalArgumentException("Email invalido.");
+		}
+		this.username = username;
+	}
+
+	@Override
+	public String toString() {
+		return "Colaborador [id_employee=" + id + ", name=" + name + ", department=" + department + "]";
+	}
 }
