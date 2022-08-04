@@ -1,0 +1,29 @@
+@startuml department api
+'Diagram used to explain the Department's data flux
+
+actor "User" as user
+participant "<font:monospaced>api-leo" as producer << Service >>
+entity RabbitMQ as queue << Queue >>
+participant "<font:monospaced>api-leo" as consumer << Consumer >>
+
+user-->producer : action
+activate producer
+producer->queue : enqueue <font:monospaced>DepartmentEvent
+producer-->user : response
+deactivate producer
+
+...
+
+queue-->consumer : dequeue
+activate consumer
+note right
+Message processed asynchronously in
+<font:monospaced>DepartmentEventsHandler
+end note
+deactivate consumer
+
+@enduml
+
+// UML Editors
+//https://planttext.com/
+//https://plantuml-editor.kkeisuke.com/
