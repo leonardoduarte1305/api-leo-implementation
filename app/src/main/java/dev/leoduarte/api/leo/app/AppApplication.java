@@ -11,3 +11,7 @@ public class AppApplication {
 	}
 
 }
+
+//TODO Write the readme.md file.
+//TODO Update the Jenkinsfile.
+//TODO Update the Dockerfile.

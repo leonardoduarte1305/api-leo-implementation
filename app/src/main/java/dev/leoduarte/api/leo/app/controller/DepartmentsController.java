@@ -4,27 +4,24 @@ import java.util.List;
 
 import javax.validation.Valid;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import dev.leoduarte.DepartmentsApi;
-import dev.leoduarte.api.leo.app.persistence.DepartmentRepository;
 import dev.leoduarte.api.leo.app.service.DepartmentService;
 import dev.leoduarte.model.Department;
 import dev.leoduarte.model.DepartmentCreation;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
-@RestController
+@Slf4j
 @RequiredArgsConstructor
+@RestController
 public class DepartmentsController implements DepartmentsApi {
-
-	private final DepartmentRepository departmentRepository;
 	private final DepartmentService departmentService;
-	private final ObjectMapper objectMapper = new ObjectMapper();
+	private final ObjectMapper objectMapper;
 
 	@Override public ResponseEntity<Department> createDepartment(@Valid DepartmentCreation departmentCreation) {
 		Department department = objectMapper.convertValue(
@@ -34,19 +31,25 @@ public class DepartmentsController implements DepartmentsApi {
 	}
 
 	@Override public ResponseEntity<Void> deleteDepartment(Integer id) {
-		return null;
+		departmentService.deleteDepartment(id);
+		return ResponseEntity.noContent().build();
 	}
 
 	@Override public ResponseEntity<List<Department>> getAll() {
-		return null;
+		List<Department> departments = departmentService.getAll();
+		return ResponseEntity.ok(departments);
 	}
 
-	@Override public ResponseEntity<List<Department>> getById(Integer id) {
-		return null;
+	@Override public ResponseEntity<Department> getById(Integer id) {
+		Department department = objectMapper.convertValue(
+				departmentService.getById(id),
+				Department.class);
+		return ResponseEntity.ok(department);
 	}
 
 	@Override
 	public ResponseEntity<Department> updateDepartment(Integer id, @Valid DepartmentCreation departmentCreation) {
+		//TODO updateDepartment
 		return null;
 	}
 }
