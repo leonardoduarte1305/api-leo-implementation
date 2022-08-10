@@ -31,7 +31,7 @@ public class DepartmentsController implements DepartmentsApi {
 	}
 
 	@Override public ResponseEntity<Void> deleteDepartment(Integer id) {
-		departmentService.deleteDepartment(id);
+		departmentService.deleteDepartment(id.longValue());
 		return ResponseEntity.noContent().build();
 	}
 
@@ -42,7 +42,7 @@ public class DepartmentsController implements DepartmentsApi {
 
 	@Override public ResponseEntity<Department> getById(Integer id) {
 		Department department = objectMapper.convertValue(
-				departmentService.getById(id),
+				departmentService.getById(id.longValue()),
 				Department.class);
 		return ResponseEntity.ok(department);
 	}
@@ -50,7 +50,7 @@ public class DepartmentsController implements DepartmentsApi {
 	@Override
 	public ResponseEntity<Department> updateDepartment(Integer id, @Valid DepartmentCreation departmentCreation) {
 		Department department = objectMapper.convertValue(
-				departmentService.updateDepartment(id, departmentCreation),
+				departmentService.updateDepartment(id.longValue(), departmentCreation),
 				Department.class);
 		return ResponseEntity.ok(department);
 	}

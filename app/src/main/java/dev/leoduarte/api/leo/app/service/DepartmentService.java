@@ -29,13 +29,11 @@ public class DepartmentService {
 						Department.class));
 	}
 
-	public void deleteDepartment(Integer id) {
-		getDepartment(id);
-
-		departmentRepository.deleteById(id.longValue());
+	public void deleteDepartment(Long id) {
+		departmentRepository.delete(getDepartment(id));
 	}
 
-	public Department getById(Integer id) {
+	public Department getById(Long id) {
 		return getDepartment(id);
 	}
 
@@ -45,15 +43,15 @@ public class DepartmentService {
 				.collect(Collectors.toList());
 	}
 
-	public Department updateDepartment(Integer id, DepartmentCreation departmentCreation) {
+	public Department updateDepartment(Long id, DepartmentCreation departmentCreation) {
 		Department department = getDepartment(id);
 		department.setDescription(departmentCreation.getDescription());
 
 		return departmentRepository.saveAndFlush(department);
 	}
 
-	private Department getDepartment(Integer id) {
-		return departmentRepository.findById(id.longValue()).orElseThrow(
+	private Department getDepartment(Long id) {
+		return departmentRepository.findById(id).orElseThrow(
 				() -> new DepartmentotFoundException(
 						String.format("Department with id: %d does not exist.", id)));
 	}
