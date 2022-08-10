@@ -21,4 +21,7 @@ public class Department {
 	@Column(nullable = false)
 	private String description;
 
+	public void setDescription(String description) {
+		this.description = description;
+	}
 }

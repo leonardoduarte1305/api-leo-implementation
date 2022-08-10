@@ -49,7 +49,9 @@ public class DepartmentsController implements DepartmentsApi {
 
 	@Override
 	public ResponseEntity<Department> updateDepartment(Integer id, @Valid DepartmentCreation departmentCreation) {
-		//TODO updateDepartment
-		return null;
+		Department department = objectMapper.convertValue(
+				departmentService.updateDepartment(id, departmentCreation),
+				Department.class);
+		return ResponseEntity.ok(department);
 	}
 }

@@ -30,17 +30,13 @@ public class DepartmentService {
 	}
 
 	public void deleteDepartment(Integer id) {
-		departmentRepository.findById(id.longValue()).orElseThrow(
-				() -> new DepartmentotFoundException(
-						String.format("Department with id: %id does not exist.", id)));
+		getDepartment(id);
 
 		departmentRepository.deleteById(id.longValue());
 	}
 
-	public Object getById(Integer id) {
-		return departmentRepository.findById(id.longValue()).orElseThrow(
-				() -> new DepartmentotFoundException(
-						String.format("Department with id: %id does not exist.", id)));
+	public Department getById(Integer id) {
+		return getDepartment(id);
 	}
 
 	public List<dev.leoduarte.model.Department> getAll() {
@@ -48,4 +44,18 @@ public class DepartmentService {
 						objectMapper.convertValue(d, dev.leoduarte.model.Department.class))
 				.collect(Collectors.toList());
 	}
+
+	public Department updateDepartment(Integer id, DepartmentCreation departmentCreation) {
+		Department department = getDepartment(id);
+		department.setDescription(departmentCreation.getDescription());
+
+		return departmentRepository.saveAndFlush(department);
+	}
+
+	private Department getDepartment(Integer id) {
+		return departmentRepository.findById(id.longValue()).orElseThrow(
+				() -> new DepartmentotFoundException(
+						String.format("Department with id: %d does not exist.", id)));
+	}
+
 }
