@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import dev.leoduarte.api.leo.app.exceptions.DepartmentotFoundException;
+import dev.leoduarte.api.leo.app.exceptions.DepartmentNotFoundException;
 import dev.leoduarte.api.leo.app.persistence.DepartmentRepository;
 import dev.leoduarte.api.leo.app.persistence.entity.Department;
 import dev.leoduarte.model.DepartmentCreation;
@@ -52,7 +52,7 @@ public class DepartmentService {
 
 	private Department getDepartment(Long id) {
 		return departmentRepository.findById(id).orElseThrow(
-				() -> new DepartmentotFoundException(
+				() -> new DepartmentNotFoundException(
 						String.format("Department with id: %d does not exist.", id)));
 	}
 
