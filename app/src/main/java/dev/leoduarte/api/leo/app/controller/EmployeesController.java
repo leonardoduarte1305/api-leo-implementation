@@ -8,38 +8,57 @@ import javax.validation.constraints.NotNull;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import dev.leoduarte.EmployeesApi;
+import dev.leoduarte.api.leo.app.service.EmployeeService;
 import dev.leoduarte.model.Employee;
 import dev.leoduarte.model.EmployeeCreation;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @RestController
 @AllArgsConstructor
 public class EmployeesController implements EmployeesApi {
+	private final EmployeeService employeeService;
+	private final ObjectMapper objectMapper;
 
 	@Override public ResponseEntity<Employee> createEmployee(@Valid EmployeeCreation employeeCreation) {
-		return null;
+		Employee employee = objectMapper.convertValue(
+				employeeService.createEmployee(employeeCreation),
+				Employee.class);
+		return ResponseEntity.ok(employee);
 	}
 
 	@Override public ResponseEntity<Void> deleteEmployee(Integer id) {
-		return null;
+		employeeService.deleteEmployee(id.longValue());
+		return ResponseEntity.noContent().build();
 	}
 
 	@Override public ResponseEntity<List<Employee>> getAll() {
-		return null;
+		List<Employee> employees = employeeService.getAll();
+		return ResponseEntity.ok(employees);
 	}
 
-	@Override public ResponseEntity<List<Employee>> getById(Integer id) {
-		return null;
+	@Override public ResponseEntity<Employee> getById(Integer id) {
+		Employee employee = objectMapper.convertValue(
+				employeeService.getById(id.longValue()),
+				Employee.class);
+		return ResponseEntity.ok(employee);
 	}
 
 	@Override
 	public ResponseEntity<List<Employee>> listEmployees(@NotNull @Valid Integer page, @NotNull @Valid Integer quantity,
 			@Valid String ordination) {
+		// TODO Pageable
 		return null;
 	}
 
 	@Override public ResponseEntity<Employee> updateEmployee(Integer id, @Valid EmployeeCreation employeeCreation) {
-		return null;
+		Employee employee = objectMapper.convertValue(
+				employeeService.updateEmployee(id.longValue(), employeeCreation),
+				Employee.class);
+		return ResponseEntity.ok(employee);
 	}
 }
