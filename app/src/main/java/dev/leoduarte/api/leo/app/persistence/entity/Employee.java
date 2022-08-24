@@ -1,20 +1,17 @@
 package dev.leoduarte.api.leo.app.persistence.entity;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -55,22 +52,22 @@ public class Employee {
 	@Column(name = "password")
 	private String password;
 
-	@ManyToMany
-	@JoinColumn(name = "id_department")
-	private List<Department> department;
+	@ManyToOne
+	@JoinColumn(name = "id")
+	private Department department;
 
-	@ManyToMany(fetch = FetchType.EAGER)
-	private List<Profile> profiles = new ArrayList<>();
+	@ManyToOne
+	private Profile profile;
 
 	private void setCpf(String cpf) {
-		if (cpf == null || !cpf.matches("\\d{3}\\.\\d{3}\\.\\d{3}\\-\\d{2}")) {
+		if (cpf == null || !cpf.matches("d{3}\\.d{3}\\.d{3}\\-d{2}")) {
 			throw new IllegalArgumentException("Invalid CPF.");
 		}
 		this.cpf = cpf;
 	}
 
 	private void setTelephone(String telephone) {
-		if (telephone == null || !telephone.matches("\\d{2}\\ \\d{4,5}\\-\\d{4}")) {
+		if (telephone == null || !telephone.matches("d{2}\\ d{4,5}\\-d{4}")) {
 			throw new IllegalArgumentException("Numero invalido.");
 		}
 		this.telephone = telephone;

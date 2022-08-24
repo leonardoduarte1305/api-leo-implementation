@@ -14,6 +14,7 @@ import dev.leoduarte.EmployeesApi;
 import dev.leoduarte.api.leo.app.service.EmployeeService;
 import dev.leoduarte.model.Employee;
 import dev.leoduarte.model.EmployeeCreation;
+import dev.leoduarte.model.EmployeeProperties;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -33,7 +34,7 @@ public class EmployeesController implements EmployeesApi {
 
 	@Override public ResponseEntity<Void> deleteEmployee(Integer id) {
 		employeeService.deleteEmployee(id.longValue());
-		return ResponseEntity.noContent().build();
+		return ResponseEntity.ok().build();
 	}
 
 	@Override public ResponseEntity<List<Employee>> getAll() {
@@ -55,9 +56,10 @@ public class EmployeesController implements EmployeesApi {
 		return null;
 	}
 
-	@Override public ResponseEntity<Employee> updateEmployee(Integer id, @Valid EmployeeCreation employeeCreation) {
+	@Override public ResponseEntity<Employee> updateEmployee(Integer id,
+			@Valid EmployeeProperties employeeProperties) {
 		Employee employee = objectMapper.convertValue(
-				employeeService.updateEmployee(id.longValue(), employeeCreation),
+				employeeService.updateEmployee(id.longValue(), employeeProperties),
 				Employee.class);
 		return ResponseEntity.ok(employee);
 	}
