@@ -3,6 +3,8 @@ package dev.leoduarte.api.leo.app.service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.transaction.Transactional;
+
 import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -43,11 +45,11 @@ public class DepartmentService {
 				.collect(Collectors.toList());
 	}
 
+	@Transactional
 	public Department updateDepartment(Long id, DepartmentCreation departmentCreation) {
 		Department department = getDepartment(id);
 		department.setDescription(departmentCreation.getDescription());
-
-		return departmentRepository.saveAndFlush(department);
+		return department;
 	}
 
 	private Department getDepartment(Long id) {

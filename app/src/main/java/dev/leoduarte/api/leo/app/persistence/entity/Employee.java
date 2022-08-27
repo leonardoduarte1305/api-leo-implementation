@@ -27,7 +27,7 @@ public class Employee {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private Long employee_id;
 
 	@Column
 	private String name;
@@ -49,39 +49,15 @@ public class Employee {
 
 	private Date registerDate = Calendar.getInstance().getTime();
 
-	@Column(name = "password")
 	private String password;
 
-	@ManyToOne
-	@JoinColumn(name = "id")
-	private Department department;
+	private Long department_id;
 
 	@ManyToOne
 	private Profile profile;
 
-	private void setCpf(String cpf) {
-		if (cpf == null || !cpf.matches("d{3}\\.d{3}\\.d{3}\\-d{2}")) {
-			throw new IllegalArgumentException("Invalid CPF.");
-		}
-		this.cpf = cpf;
-	}
-
-	private void setTelephone(String telephone) {
-		if (telephone == null || !telephone.matches("d{2}\\ d{4,5}\\-d{4}")) {
-			throw new IllegalArgumentException("Numero invalido.");
-		}
-		this.telephone = telephone;
-	}
-
-	private void setUsername(String username) {
-		if (username == null || !username.matches("^[a-zA-Z0-9._]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$")) {
-			throw new IllegalArgumentException("Email invalido.");
-		}
-		this.username = username;
-	}
-
 	@Override
 	public String toString() {
-		return "Colaborador [id_employee=" + id + ", name=" + name + ", department=" + department + "]";
+		return "Employee [id_employee=" + employee_id + ", name=" + name + ", department=" + department_id + "]";
 	}
 }

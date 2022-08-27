@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
-@Entity(name = "access")
+@Entity(name = "profile")
 public class Profile {
 
 	@Id

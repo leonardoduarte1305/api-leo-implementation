@@ -1,6 +1,9 @@
 server:
   port: 8383
+
 spring:
+  application:
+    name: api-leo
   config:
     activate:
       on-profile: default
@@ -9,13 +12,20 @@ spring:
     url: jdbc:mysql://localhost:3306/dbDev?allowPublicKeyRetrieval=true&useSSL=false
     username: root
     password: securePassword
-    #JPA Configs
   jpa:
+    defer-datasource-initialization: false
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    generate-ddl: true
+    show-sql: true
     hibernate:
-      ddl-auto: update
-    defer-datasource-initialization: true
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.MySQL8Dialect
-      format_sql: true
-      show_sql: true
+      ddl-auto: create
+  main:
+    banner-mode: off
+
+logging:
+  level:
+    org.springframework.boot.flyway: WARN
+    org.springframework.boot.sql: WARN
+    org.springframework.boot.web: WARN
+
+debug: false

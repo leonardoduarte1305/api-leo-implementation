@@ -27,12 +27,10 @@ public class EmployeeService {
 	private final ObjectMapper objectMapper;
 
 	public Employee createEmployee(EmployeeCreation employeeCreation) {
-		Long id = employeeCreation.getDepartment().longValue();
-		Department department = departmentService.getById(id);
+		Long department_id = employeeCreation.getDepartmentId().longValue();
+		departmentService.getById(department_id);
 
 		Employee employee = objectMapper.convertValue(employeeCreation, Employee.class);
-		employee.setDepartment(department);
-
 		return employeeRepository.saveAndFlush(employee);
 	}
 
@@ -52,9 +50,11 @@ public class EmployeeService {
 
 	public Employee updateEmployee(long id, EmployeeProperties employeeProperties) {
 		Employee employee = getEmployee(id);
-		Department department = departmentService.getById(employeeProperties.getDepartment().longValue());
 
-		employee.setDepartment(department);
+		Long department_id = employeeProperties.getDepartmentId().longValue();
+		departmentService.getById(department_id);
+
+		employee.setDepartment_id(department_id);
 		employee.setName(employeeProperties.getName());
 		employee.setProfile(objectMapper.convertValue(employeeProperties.getProfile(), Profile.class));
 
