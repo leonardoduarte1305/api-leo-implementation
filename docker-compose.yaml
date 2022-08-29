@@ -11,3 +11,21 @@ services:
       - MYSQL_DATABASE=dbDev
     volumes:
       - ${HOME}/Downloads/DockerVolumes/mysql/api_leo:/var/lib/mysql
+  prometheus:
+    image: prom/prometheus
+    container_name: prometheus-compose
+    ports:
+      - "9090:9090"
+    volumes:
+      - /${PWD}/prometheus.yml:/etc/prometheus/prometheus.yml
+    restart: always
+
+  grafana:
+    image: grafana/grafana
+    container_name: grafana-compose
+    ports:
+      - '3000:3000'
+    volumes:
+      - ${HOME}/Downloads/DockerVolumes/grafana/:/var/lib/grafana
+    restart: always
+    user: 0:0
