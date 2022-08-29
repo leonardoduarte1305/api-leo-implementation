@@ -11,6 +11,9 @@ services:
       - MYSQL_DATABASE=dbDev
     volumes:
       - ${HOME}/Downloads/DockerVolumes/mysql/api_leo:/var/lib/mysql
+    networks:
+      - compose_network
+
   prometheus:
     image: prom/prometheus
     container_name: prometheus-compose
@@ -19,6 +22,8 @@ services:
     volumes:
       - /${PWD}/prometheus.yml:/etc/prometheus/prometheus.yml
     restart: always
+    networks:
+      - compose_network
 
   grafana:
     image: grafana/grafana
@@ -29,3 +34,40 @@ services:
       - ${HOME}/Downloads/DockerVolumes/grafana/:/var/lib/grafana
     restart: always
     user: 0:0
+    networks:
+      - compose_network
+
+  postgresql:
+    image: postgres
+    container_name: postgres-compose
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=docker
+      - POSTGRES_PASSWORD=docker
+    restart: always
+    volumes:
+      - ${HOME}/Downloads/DockerVolumes/postgres/sonar:/var/lib/postgresql
+      - ${HOME}/Downloads/DockerVolumes/postgres/sonar/data:/var/lib/postgresql/data
+    networks:
+      - compose_network
+
+  jenkins:
+    image: jenkins/jenkins:lts-jdk11
+    privileged: true
+    user: root
+    ports:
+      - 8090:8080
+      - 50000:50000
+    container_name: jenkins
+    restart: always
+    volumes:
+      - ${HOME}/Downloads/DockerVolumes/jenkins-alpine-jdk11:/var/jenkins_home
+    networks:
+      - compose_network
+    depends_on:
+      - postgresql
+
+networks:
+  compose_network:
+    driver: bridge
