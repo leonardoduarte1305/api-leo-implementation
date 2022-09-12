@@ -16,7 +16,7 @@ public class Profile {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private Long profile_id;
 
 	private String role;
 }
