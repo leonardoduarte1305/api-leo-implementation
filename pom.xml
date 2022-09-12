@@ -42,6 +42,7 @@
 		<org.mapstruct.version>1.5.2.Final</org.mapstruct.version>
 		<org.projectlombok.version>1.18.24</org.projectlombok.version>
 		<validation.api.version>2.0.1.Final</validation.api.version>
+		<flyway-core.version>9.2.0</flyway-core.version>
 
 		<skipITs>false</skipITs>
 	</properties>
@@ -116,6 +117,11 @@
 				<groupId>javax.validation</groupId>
 				<artifactId>validation-api</artifactId>
 				<version>${validation.api.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.flywaydb</groupId>
+				<artifactId>flyway-core</artifactId>
+				<version>${flyway-core.version}</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
