@@ -36,13 +36,18 @@ pipeline {
                         sh "${MAVEN} install"
                     }
                 }
+                stage("Sonar Analysis"){
+                    steps{
+                        sh "${MAVEN} sonar:sonar"
+                    }
+                }
             }
         }
         stage("CD") {
             stages {
-                stage("Printing") {
+                stage("Slack Message") {
                     steps {
-                        sh "echo CD Stage performing nothing."
+                        slackSend(channel: "jenkins", message: "Here is the primary message")
                     }
                 }
             }

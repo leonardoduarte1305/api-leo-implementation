@@ -14,4 +14,8 @@
 	<packaging>jar</packaging>
 	<name>${project.description} :: App-Test-Support</name>
 
+	<properties>
+		<sonar.skip>true</sonar.skip>
+	</properties>
+
 </project>
