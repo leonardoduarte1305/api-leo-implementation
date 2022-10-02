@@ -3,7 +3,7 @@ global:
   scrape_timeout: 10s
   evaluation_interval: 15s
 alerting:
-  alertmanagers:
+  alert-managers:
     - follow_redirects: true
       enable_http2: true
       scheme: http
