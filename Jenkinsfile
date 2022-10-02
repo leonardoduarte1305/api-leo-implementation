@@ -36,20 +36,39 @@ pipeline {
                         sh "${MAVEN} install"
                     }
                 }
-                stage("Sonar Analysis"){
-                    steps{
+                stage("Sonar Analysis") {
+                    steps {
                         sh "${MAVEN} sonar:sonar -Dsonar.login=${SONAR_LOGIN}"
                     }
                 }
             }
         }
-        stage("CD") {
-            stages {
-                stage("Slack Message") {
-                    steps {
-                        slackSend(channel: "jenkins", message: "Here is the primary message")
-                    }
-                }
+    }
+    post("CD") {
+        success {
+            script {
+                slackSend(
+                        channel: "jenkins",
+                        message: "The build finished Successfully.",
+                        emoji: ':ok_hand:'
+                )
+            }
+        }
+        failure {
+            script {
+                slackSend(
+                        channel: "jenkins",
+                        message: "The build couldn't finish due something wrong.",
+                        emoji: ':cold_sweet:')
+            }
+        }
+        aborted {
+            script {
+                slackSend(
+                        channel: "jenkins",
+                        message: "The build was aborted.",
+                        emoji: ':zipper_mouth:'
+                )
             }
         }
     }
