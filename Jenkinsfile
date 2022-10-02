@@ -49,8 +49,7 @@ pipeline {
             script {
                 slackSend(
                         channel: "jenkins",
-                        message: "Build #${BUILD_NUMBER} - The build finished Successfully. [${BUILD_URL}]",
-                        emoji: ':ok_hand:'
+                        message: "The build finished Successfully. :ok_hand:",
                 )
             }
         }
@@ -58,8 +57,7 @@ pipeline {
             script {
                 slackSend(
                         channel: "jenkins",
-                        message: "Build #${BUILD_NUMBER} - The build couldn't finish due something wrong. [${BUILD_URL}]",
-                        emoji: ':cold_face:'
+                        message: "Build #${BUILD_NUMBER} - The build couldn't finish due something wrong. [${BUILD_URL}] cold_face:",
                 )
             }
         }
@@ -67,8 +65,7 @@ pipeline {
             script {
                 slackSend(
                         channel: "jenkins",
-                        message: "Build #${BUILD_NUMBER} - The build was aborted. [${BUILD_URL}]",
-                        emoji: ':zipper_mouth_face:'
+                        message: "Build #${BUILD_NUMBER} - The build was aborted. [${BUILD_URL}] :zipper_mouth_face:",
                 )
             }
         }
