@@ -38,7 +38,7 @@ pipeline {
                 }
                 stage("Sonar Analysis"){
                     steps{
-                        sh "${MAVEN} sonar:sonar"
+                        sh "${MAVEN} sonar:sonar -Dsonar.login=${SONAR_LOGIN}"
                     }
                 }
             }
