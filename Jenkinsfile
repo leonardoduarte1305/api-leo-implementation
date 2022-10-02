@@ -49,7 +49,7 @@ pipeline {
             script {
                 slackSend(
                         channel: "jenkins",
-                        message: "The build finished Successfully. :ok_hand:",
+                        message: "Build #${BUILD_NUMBER} - The build finished Successfully. [${BUILD_URL}] :ok_hand:",
                 )
             }
         }
