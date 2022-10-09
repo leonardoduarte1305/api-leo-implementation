@@ -8,7 +8,7 @@ pipeline {
         MAVEN = "mvn -B -Dstyle.color=always -Dmaven.test.redirectTestOutputToFile=false"
         MAJOR_VERSION = 1
         MAVEN_OPTS = "-Djansi.force=true -Xmx512m"
-        SERVICE_NAME = "api-leo"
+        SONAR_PROJECT_KEY= "api-leo-Implementation"
     }
     stages {
         stage("CI") {
@@ -23,7 +23,10 @@ pipeline {
                 }
                 stage("Sonar Analysis") {
                     steps {
-                        sh "${MAVEN} clean verify sonar:sonar"
+                        sh "${MAVEN} mvn clean verify sonar:sonar" +
+                                " -Dsonar.projectKey=${SONAR_PROJECT_KEY}" +
+                                " -Dsonar.host.url=${SONAR_HOST_URL}" +
+                                " -Dsonar.login=${SONAR_TOKEN}"
                     }
                 }
                 stage("Build") {

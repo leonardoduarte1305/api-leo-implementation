@@ -36,6 +36,7 @@
 		<maven.compiler.source>${java.version}</maven.compiler.source>
 		<maven.compiler.target>${java.version}</maven.compiler.target>
 		<org.codehaus.mojo.tidy.version>1.1.0</org.codehaus.mojo.tidy.version>
+		<sonar-maven-plugin.version>3.9.1.2184</sonar-maven-plugin.version>
 
 		<org.springframework.boot.version>2.7.0</org.springframework.boot.version>
 		<jacoco.maven.plugin.version>0.8.8</jacoco.maven.plugin.version>
@@ -123,6 +124,12 @@
 				<artifactId>flyway-core</artifactId>
 				<version>${flyway-core.version}</version>
 			</dependency>
+			<dependency>
+				<groupId>org.sonarsource.scanner.maven</groupId>
+				<artifactId>sonar-maven-plugin</artifactId>
+				<version>${sonar-maven-plugin.version}</version>
+			</dependency>
+
 		</dependencies>
 	</dependencyManagement>
 
@@ -207,7 +214,7 @@
 				<plugin>
 					<groupId>org.sonarsource.scanner.maven</groupId>
 					<artifactId>sonar-maven-plugin</artifactId>
-					<version>3.7.0.1746</version>
+					<version>${sonar-maven-plugin.version}</version>
 				</plugin>
 			</plugins>
 		</pluginManagement>
