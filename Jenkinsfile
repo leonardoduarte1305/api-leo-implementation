@@ -31,12 +31,17 @@ pipeline {
                 }
                 stage("Build") {
                     steps {
-                        sh "${MAVEN} clean package"
+                        sh "${MAVEN} package"
                     }
                 }
                 stage("Install Artifacts") {
                     steps {
                         sh "${MAVEN} install"
+                    }
+                }
+                stage("Deploy Artifacts") {
+                    steps {
+                        sh "${MAVEN} deploy -Pci -DHOST_MACHINE_IP=${HOST_MACHINE_IP}"
                     }
                 }
             }

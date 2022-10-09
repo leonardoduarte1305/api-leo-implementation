@@ -19,6 +19,10 @@
 
 	<properties>
 		<org.mapstruct.version>1.5.2.Final</org.mapstruct.version>
+
+		<!-- Dockerfile Infos-->
+		<dockerfile.repository.prefix>leonardoduarte1305</dockerfile.repository.prefix>
+		<dockerfile.tag>${project.version}</dockerfile.tag>
 	</properties>
 
 	<dependencies>
@@ -129,11 +133,60 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
-					<source>9</source>
-					<target>9</target>
+					<source>11</source>
+					<target>11</target>
 				</configuration>
 			</plugin>
 		</plugins>
 	</build>
+
+	<profiles>
+		<profile>
+			<id>ci</id>
+			<build>
+				<plugins>
+					<!-- Build Docker Image-->
+					<plugin>
+						<groupId>org.springframework.boot</groupId>
+						<artifactId>spring-boot-maven-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>spring-image</id>
+								<goals>
+									<goal>build-image</goal>
+								</goals>
+								<configuration>
+									<layers>
+										<enabled>true</enabled>
+									</layers>
+									<image>
+										<name>${dockerfile.repository.prefix}/api-leo:${dockerfile.tag}</name>
+									</image>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+
+					<!-- Push Docker Image-->
+					<plugin>
+						<groupId>com.spotify</groupId>
+						<artifactId>dockerfile-maven-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>docker-push</id>
+								<goals>
+									<goal>push</goal>
+								</goals>
+								<configuration>
+									<repository>${dockerfile.repository.prefix}/api-leo</repository>
+									<tag>${dockerfile.tag}</tag>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 
 </project>

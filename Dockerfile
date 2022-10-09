@@ -1,8 +1,16 @@
-FROM openjdk:12-alpine
+FROM adoptopenjdk:11-jre-hotspot as builder
+ARG JAR_FILE=target/*.jar
+COPY ${JAR_FILE} application.jar
+RUN java -Djarmode=layertools -jar application.jar extract
 
-ARG APP_NAME=target/*.jar
-COPY ${APP_NAME} api.jar
+FROM adoptopenjdk:11-jre-hotspot
+COPY --from=builder dependencies/ ./
+COPY --from=builder snapshot-dependencies/ ./
+COPY --from=builder spring-boot-loader/ ./
+COPY --from=builder application/ ./
 
-ENV PORT=${PORT}
+ENV HOST_MACHINE_IP=${HOST_MACHINE_IP}
 
-ENTRYPOINT ["java","-Xmx512m","-Dserver.port=${PORT}", "-jar", "api.jar"]
+EXPOSE 8383
+
+ENTRYPOINT ["java","-Xmx512m","-Dserver.port=8383", "org.springframework.boot.loader.JarLauncher"]
