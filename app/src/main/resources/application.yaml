@@ -13,7 +13,7 @@ spring:
     baseline-on-migrate: true
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://${MYSQL_HOST_URL}:3306/dbDev?allowPublicKeyRetrieval=true&useSSL=false
+    url: jdbc:mysql://192.168.0.239:3306/dbDev?allowPublicKeyRetrieval=true&useSSL=false
     username: root
     password: securePassword
   jpa:
