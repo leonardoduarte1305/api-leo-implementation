@@ -21,9 +21,9 @@ pipeline {
                         sh "printenv | sort"
                     }
                 }
-                stage("Init") {
+                stage("Sonar Analysis") {
                     steps {
-                        sh "echo Stage Init"
+                        sh "${MAVEN} clean verify sonar:sonar"
                     }
                 }
                 stage("Build") {
@@ -34,11 +34,6 @@ pipeline {
                 stage("Install Artifacts") {
                     steps {
                         sh "${MAVEN} install"
-                    }
-                }
-                stage("Sonar Analysis") {
-                    steps {
-                        sh "${MAVEN} sonar:sonar -Dsonar.login=${SONAR_LOGIN}"
                     }
                 }
             }

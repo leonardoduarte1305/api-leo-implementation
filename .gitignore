@@ -4,6 +4,7 @@
 .springBeans
 .apt_generated
 .sts4-cache
+.scannerwork
 *.tgz
 *.iws
 *.iml
