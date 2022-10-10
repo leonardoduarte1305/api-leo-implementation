@@ -14,7 +14,7 @@
 		<repository>
 			<id>api-leo</id>
 			<name>Api-Leo Docker Repository</name>
-			<url>https://hub.docker.io</url>
+			<url>https://hub.docker.com/repository/docker/leonardoduarte1305</url>
 		</repository>
 	</distributionManagement>
 
@@ -29,7 +29,7 @@
 		<org.mapstruct.version>1.5.2.Final</org.mapstruct.version>
 
 		<!-- Dockerfile Infos-->
-		<dockerfile.repository.prefix>hub.docker.com/repository/docker/leonardoduarte1305</dockerfile.repository.prefix>
+		<dockerfile.repository.prefix>hub.docker.oi/repository/docker/leonardoduarte1305</dockerfile.repository.prefix>
 		<dockerfile-maven-plugin.version>1.4.13</dockerfile-maven-plugin.version>
 	</properties>
 
