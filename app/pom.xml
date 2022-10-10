@@ -21,8 +21,8 @@
 		<org.mapstruct.version>1.5.2.Final</org.mapstruct.version>
 
 		<!-- Dockerfile Infos-->
-		<dockerfile.repository.prefix>leonardoduarte1305</dockerfile.repository.prefix>
-		<dockerfile.tag>${project.version}</dockerfile.tag>
+		<dockerfile.repository.prefix>https://hub.docker.com/repository/docker/leonardoduarte1305/</dockerfile.repository.prefix>
+		<dockerfile-maven-plugin.version>1.4.13</dockerfile-maven-plugin.version>
 	</properties>
 
 	<dependencies>
@@ -160,7 +160,7 @@
 										<enabled>true</enabled>
 									</layers>
 									<image>
-										<name>${dockerfile.repository.prefix}/api-leo:${dockerfile.tag}</name>
+										<name>${dockerfile.repository.prefix}/api-leo:${project.version}</name>
 									</image>
 								</configuration>
 							</execution>
@@ -171,15 +171,16 @@
 					<plugin>
 						<groupId>com.spotify</groupId>
 						<artifactId>dockerfile-maven-plugin</artifactId>
+						<version>${dockerfile-maven-plugin.version}</version>
 						<executions>
 							<execution>
-								<id>docker-push</id>
+								<id>default</id>
 								<goals>
 									<goal>push</goal>
 								</goals>
 								<configuration>
 									<repository>${dockerfile.repository.prefix}/api-leo</repository>
-									<tag>${dockerfile.tag}</tag>
+									<tag>${project.version}</tag>
 								</configuration>
 							</execution>
 						</executions>
