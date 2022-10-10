@@ -28,13 +28,6 @@
 		<tag>@{project.version</tag>
 	</scm>
 
-	<distributionManagement>
-		<repository>
-			<id>api-leo</id>
-			<name>Api-Leo Docker Repository</name>
-			<url>https://hub.docker.io</url>
-		</repository>
-	</distributionManagement>
 	<properties>
 		<java.version>11</java.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

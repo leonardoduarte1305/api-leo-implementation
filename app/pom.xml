@@ -10,6 +10,14 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 
+	<distributionManagement>
+		<repository>
+			<id>api-leo</id>
+			<name>Api-Leo Docker Repository</name>
+			<url>https://hub.docker.io</url>
+		</repository>
+	</distributionManagement>
+
 	<groupId>dev.leoduarte.api.leo.implementation</groupId>
 	<artifactId>app</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
