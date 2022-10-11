@@ -21,17 +21,17 @@ pipeline {
                         sh "printenv | sort"
                     }
                 }
-                stage("Build") {
-                    steps {
-                        sh "${MAVEN} clean package"
-                    }
-                }
                 stage("Sonar Analysis") {
                     steps {
-                        sh "${MAVEN} verify sonar:sonar" +
+                        sh "${MAVEN} clean verify sonar:sonar" +
                                 " -Dsonar.projectKey=${SONAR_PROJECT_KEY}" +
                                 " -Dsonar.host.url=${SONAR_HOST_URL}" +
                                 " -Dsonar.login=${SONAR_TOKEN}"
+                    }
+                }
+                stage("Build") {
+                    steps {
+                        sh "${MAVEN} package"
                     }
                 }
                 stage("Install Artifacts") {
