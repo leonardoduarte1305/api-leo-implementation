@@ -4,34 +4,16 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.7.3</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<groupId>dev.leoduarte.api.leo.implementation</groupId>
+		<artifactId>api-leo-parent</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 
-	<distributionManagement>
-		<repository>
-			<id>api-leo</id>
-			<name>Api-Leo Docker Repository</name>
-			<url>https://hub.docker.com/repository/docker/leonardoduarte1305</url>
-		</repository>
-	</distributionManagement>
-
-	<groupId>dev.leoduarte.api.leo.implementation</groupId>
 	<artifactId>app</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<name>${project.description} :: App</name>
-
-	<properties>
-		<org.mapstruct.version>1.5.2.Final</org.mapstruct.version>
-
-		<!-- Dockerfile Infos-->
-		<dockerfile.repository.prefix>hub.docker.oi/repository/docker/leonardoduarte1305</dockerfile.repository.prefix>
-		<dockerfile-maven-plugin.version>1.4.13</dockerfile-maven-plugin.version>
-	</properties>
 
 	<dependencies>
 		<dependency>
@@ -86,29 +68,34 @@
 		<dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
+			<version>${h2.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
+			<version>${mysql.version}</version>
 			<scope>runtime</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
+			<version>${lombok.version}</version>
 			<optional>true</optional>
 		</dependency>
 		<dependency>
 			<groupId>javax.validation</groupId>
 			<artifactId>validation-api</artifactId>
+			<version>${validation.api.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.mapstruct</groupId>
 			<artifactId>mapstruct</artifactId>
-			<version>${org.mapstruct.version}</version>
+			<version>${mapstruct.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.flywaydb</groupId>
 			<artifactId>flyway-core</artifactId>
+			<version>${flyway-core.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.flywaydb</groupId>

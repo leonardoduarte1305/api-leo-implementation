@@ -2,6 +2,13 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.7.3</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+
 	<groupId>dev.leoduarte.api.leo.implementation</groupId>
 	<artifactId>api-leo-parent</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
@@ -28,6 +35,14 @@
 		<tag>@{project.version</tag>
 	</scm>
 
+	<distributionManagement>
+		<repository>
+			<id>nexus-compose</id>
+			<name>Api-Leo Maven Repository</name>
+			<url>http://192.168.0.239:8081/repository/nexus-compose/</url>
+		</repository>
+	</distributionManagement>
+
 	<properties>
 		<java.version>11</java.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -40,10 +55,14 @@
 
 		<org.springframework.boot.version>2.7.0</org.springframework.boot.version>
 		<jacoco.maven.plugin.version>0.8.8</jacoco.maven.plugin.version>
-		<org.mapstruct.version>1.5.2.Final</org.mapstruct.version>
+		<mapstruct.version>1.5.2.Final</mapstruct.version>
 		<org.projectlombok.version>1.18.24</org.projectlombok.version>
 		<validation.api.version>2.0.1.Final</validation.api.version>
 		<flyway-core.version>9.2.0</flyway-core.version>
+
+		<!-- Dockerfile Infos-->
+		<dockerfile.repository.prefix>leonardoduarte1305</dockerfile.repository.prefix>
+		<dockerfile-maven-plugin.version>1.4.13</dockerfile-maven-plugin.version>
 
 		<skipITs>false</skipITs>
 	</properties>
@@ -165,7 +184,7 @@
 							<path>
 								<groupId>org.mapstruct</groupId>
 								<artifactId>mapstruct-processor</artifactId>
-								<version>${org.mapstruct.version}</version>
+								<version>${mapstruct.version}</version>
 							</path>
 						</annotationProcessorPaths>
 						<compilerArgs>
