@@ -163,6 +163,8 @@
 					</plugin>
 
 					<!-- Push Docker Image-->
+					<!--Documentation:-->
+					<!--https://github.com/spotify/dockerfile-maven-->
 					<plugin>
 						<groupId>com.spotify</groupId>
 						<artifactId>dockerfile-maven-plugin</artifactId>
@@ -176,6 +178,7 @@
 								<configuration>
 									<repository>${dockerfile.repository.prefix}/api-leo</repository>
 									<tag>${project.version}</tag>
+									<useMavenSettingsForAuth>false</useMavenSettingsForAuth>
 								</configuration>
 							</execution>
 						</executions>

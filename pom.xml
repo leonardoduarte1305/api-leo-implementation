@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.7.3</version>
+		<version>2.7.4</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 
@@ -27,6 +27,14 @@
 		<module>app-test</module>
 		<module>app-test-support</module>
 	</modules>
+
+	<developers>
+		<developer>
+			<name>Leonardo Duarte</name>
+			<email>leonardoduarte1305@gmail.com</email>
+			<timezone>UTC-3</timezone>
+		</developer>
+	</developers>
 
 	<scm>
 		<connection>scm:git:https://github.com/leonardoduarte1305/api-leo.git</connection>
@@ -53,15 +61,18 @@
 		<org.codehaus.mojo.tidy.version>1.1.0</org.codehaus.mojo.tidy.version>
 		<sonar-maven-plugin.version>3.9.1.2184</sonar-maven-plugin.version>
 
-		<org.springframework.boot.version>2.7.0</org.springframework.boot.version>
+		<org.springframework.boot.version>2.7.4</org.springframework.boot.version>
 		<jacoco.maven.plugin.version>0.8.8</jacoco.maven.plugin.version>
 		<mapstruct.version>1.5.2.Final</mapstruct.version>
 		<org.projectlombok.version>1.18.24</org.projectlombok.version>
 		<validation.api.version>2.0.1.Final</validation.api.version>
 		<flyway-core.version>9.2.0</flyway-core.version>
+		<mysql.version>8.0.30</mysql.version>
+		<h2.version>2.1.214</h2.version>
+		<lombok.version>1.18.24</lombok.version>
 
 		<!-- Dockerfile Infos-->
-		<dockerfile.repository.prefix>leonardoduarte1305</dockerfile.repository.prefix>
+		<dockerfile.repository.prefix>http://localhost:8081/repository/docker-proxy/leonardoduarte1305</dockerfile.repository.prefix>
 		<dockerfile-maven-plugin.version>1.4.13</dockerfile-maven-plugin.version>
 
 		<skipITs>false</skipITs>
