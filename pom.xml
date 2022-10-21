@@ -2,13 +2,6 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.7.4</version>
-		<relativePath/> <!-- lookup parent from repository -->
-	</parent>
-
 	<groupId>dev.leoduarte.api.leo.implementation</groupId>
 	<artifactId>api-leo-parent</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
@@ -66,7 +59,6 @@
 		<mapstruct.version>1.5.2.Final</mapstruct.version>
 		<org.projectlombok.version>1.18.24</org.projectlombok.version>
 		<validation.api.version>2.0.1.Final</validation.api.version>
-		<flyway-core.version>9.2.0</flyway-core.version>
 		<mysql.version>8.0.30</mysql.version>
 		<h2.version>2.1.214</h2.version>
 		<lombok.version>1.18.24</lombok.version>
@@ -94,34 +86,10 @@
 			<!-- Springfraework Dependencies-->
 			<dependency>
 				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-starter-web</artifactId>
-				<version>${org.springframework.boot.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-devtools</artifactId>
-				<version>${org.springframework.boot.version}</version>
-				<scope>runtime</scope>
-				<optional>true</optional>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-configuration-processor</artifactId>
-				<version>${org.springframework.boot.version}</version>
-				<optional>true</optional>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-starter-jdbc</artifactId>
-				<version>${org.springframework.boot.version}</version>
-			</dependency>
-
-			<!-- Test Dependencies -->
-			<dependency>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-starter-test</artifactId>
-				<version>${org.springframework.boot.version}</version>
-				<scope>test</scope>
+				<artifactId>spring-boot-dependencies</artifactId>
+				<type>pom</type>
+				<version>2.4.0</version>
+				<scope>import</scope>
 			</dependency>
 
 			<!-- Third party Dependencies -->
@@ -149,11 +117,11 @@
 				<artifactId>validation-api</artifactId>
 				<version>${validation.api.version}</version>
 			</dependency>
-			<dependency>
-				<groupId>org.flywaydb</groupId>
-				<artifactId>flyway-core</artifactId>
-				<version>${flyway-core.version}</version>
-			</dependency>
+<!--			<dependency>-->
+<!--				<groupId>org.flywaydb</groupId>-->
+<!--				<artifactId>flyway-core</artifactId>-->
+<!--				<version>${flyway-core.version}</version>-->
+<!--			</dependency>-->
 			<dependency>
 				<groupId>org.sonarsource.scanner.maven</groupId>
 				<artifactId>sonar-maven-plugin</artifactId>
