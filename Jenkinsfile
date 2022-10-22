@@ -41,7 +41,7 @@ pipeline {
                 }
                 stage("Deploy Artifacts") {
                     steps {
-                        //sh "${MAVEN} deploy -Pci -DHOST_MACHINE_IP=${HOST_MACHINE_IP}"
+                        sh "${MAVEN} deploy -Pci -DHOST_MACHINE_IP=${HOST_MACHINE_IP}"
                     }
                 }
             }
