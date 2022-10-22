@@ -42,6 +42,10 @@
 			<name>Api-Leo Maven Repository</name>
 			<url>http://192.168.0.239:8081/repository/nexus-compose/</url>
 		</repository>
+		<snapshotRepository>
+			<id>nexus-compose-snapshot</id>
+			<url>http://192.168.0.239:8081/repository/nexus-compose-snapshot</url>
+		</snapshotRepository>
 	</distributionManagement>
 
 	<properties>
