@@ -47,7 +47,7 @@ pipeline {
             }
         }
     }
-    post("CD") {
+    post("Notifications") {
         success {
             script {
                 slackSend(

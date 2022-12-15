@@ -1,6 +1,15 @@
-FROM adoptopenjdk:11-jre-hotspot as builder
-ARG JAR_FILE=target/*.jar
-COPY ${JAR_FILE} application.jar
+FROM eclipse-temurin:17-jdk-alpine as builder
+
+VOLUME /tmp
+COPY ./target/* ./
+RUN mvnw clean package
+
+ARG JAR_FILE
+COPY ${JAR_FILE} app.jar
+
+RUN addgroup -S spring && adduser -S spring -G spring
+USER spring:spring
+
 RUN java -Djarmode=layertools -jar application.jar extract
 
 FROM adoptopenjdk:11-jre-hotspot
@@ -11,6 +20,6 @@ COPY --from=builder application/ ./
 
 ENV HOST_MACHINE_IP=${HOST_MACHINE_IP}
 
-EXPOSE 8383
+EXPOSE 8080
 
-ENTRYPOINT ["java","-Xmx512m","-Dserver.port=8383", "org.springframework.boot.loader.JarLauncher"]
+ENTRYPOINT ["java","-jar","-Xmx512m","-Dserver.port=${PORT:8080}","/app.jar"]

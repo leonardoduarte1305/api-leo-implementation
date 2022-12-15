@@ -6,6 +6,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -19,30 +20,36 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
+@CrossOrigin("*")
 @RestController
 @AllArgsConstructor
 public class EmployeesController implements EmployeesApi {
 	private final EmployeeService employeeService;
 	private final ObjectMapper objectMapper;
 
-	@Override public ResponseEntity<Employee> createEmployee(@Valid EmployeeCreation employeeCreation) {
+	@Override
+	public ResponseEntity<Employee> createEmployee(@Valid EmployeeCreation employeeCreation) {
 		Employee employee = objectMapper.convertValue(
 				employeeService.createEmployee(employeeCreation),
 				Employee.class);
 		return ResponseEntity.ok(employee);
 	}
 
-	@Override public ResponseEntity<Void> deleteEmployee(Integer id) {
+	@Override
+	public ResponseEntity<Void> deleteEmployee(Integer id) {
+		log.info("Delete employee id: {}", id);
 		employeeService.deleteEmployee(id.longValue());
 		return ResponseEntity.ok().build();
 	}
 
-	@Override public ResponseEntity<List<Employee>> getAll() {
+	@Override
+	public ResponseEntity<List<Employee>> getAll() {
 		List<Employee> employees = employeeService.getAll();
 		return ResponseEntity.ok(employees);
 	}
 
-	@Override public ResponseEntity<Employee> getById(Integer id) {
+	@Override
+	public ResponseEntity<Employee> getById(Integer id) {
 		Employee employee = objectMapper.convertValue(
 				employeeService.getById(id.longValue()),
 				Employee.class);
@@ -56,7 +63,8 @@ public class EmployeesController implements EmployeesApi {
 		return null;
 	}
 
-	@Override public ResponseEntity<Employee> updateEmployee(Integer id,
+	@Override
+	public ResponseEntity<Employee> updateEmployee(Integer id,
 			@Valid EmployeeProperties employeeProperties) {
 		Employee employee = objectMapper.convertValue(
 				employeeService.updateEmployee(id.longValue(), employeeProperties),
