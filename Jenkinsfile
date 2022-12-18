@@ -9,6 +9,7 @@ pipeline {
         MAJOR_VERSION = 1
         MAVEN_OPTS = "-Djansi.force=true -Xmx512m"
         SONAR_PROJECT_KEY= "api-leo-Implementation"
+        REPO_URL = 'https://github.com/leonardoduarte1305/api-leo-implementation.git'
         BRANCH = 'master'
         SLACK_CHANNEL = 'jenkinsbuilds'
     }
@@ -39,11 +40,6 @@ pipeline {
                 stage("Install Artifacts") {
                     steps {
                         sh "${MAVEN} install"
-                    }
-                }
-                stage("Deploy Artifacts") {
-                    steps {
-                        sh "${MAVEN} deploy -Pci -DHOST_MACHINE_IP=${HOST_MACHINE_IP}"
                     }
                 }
             }
