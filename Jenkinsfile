@@ -9,6 +9,8 @@ pipeline {
         MAJOR_VERSION = 1
         MAVEN_OPTS = "-Djansi.force=true -Xmx512m"
         SONAR_PROJECT_KEY= "api-leo-Implementation"
+        BRANCH = 'master'
+        SLACK_CHANNEL = 'jenkinsbuilds'
     }
     stages {
         stage("CI") {
