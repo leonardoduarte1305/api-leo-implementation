@@ -49,7 +49,7 @@ pipeline {
         success {
             script {
                 slackSend(
-                        channel: "jenkins",
+                        channel: SLACK_CHANNEL,
                         message: "Build #${BUILD_NUMBER} - The build finished Successfully. [${BUILD_URL}] :ok_hand:",
                 )
             }
@@ -57,7 +57,7 @@ pipeline {
         failure {
             script {
                 slackSend(
-                        channel: "jenkins",
+                        channel: SLACK_CHANNEL,
                         message: "Build #${BUILD_NUMBER} - The build couldn't finish due something wrong. [${BUILD_URL}] cold_face:",
                 )
             }
@@ -65,7 +65,7 @@ pipeline {
         aborted {
             script {
                 slackSend(
-                        channel: "jenkins",
+                        channel: SLACK_CHANNEL,
                         message: "Build #${BUILD_NUMBER} - The build was aborted. [${BUILD_URL}] :zipper_mouth_face:",
                 )
             }
