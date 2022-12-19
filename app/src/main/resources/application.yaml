@@ -9,7 +9,7 @@ spring:
       on-profile: default
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://198.168.0.50:3308/dbDev?allowPublicKeyRetrieval=true&useSSL=false
+    url: jdbc:mysql://${env.HOST_MACHINE_IP:localhost}:3306/dbDev?allowPublicKeyRetrieval=true&useSSL=false
     username: root
     password: securePassword
   jpa:

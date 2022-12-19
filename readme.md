@@ -10,7 +10,7 @@ This service is based in the following ideas:
 
 * As a manager i want to manage (register, edit, exclude and update) the departments of my company.
 * I want to register, edit, exclude and update my employees.
-* As a manager i wat to grant accesses and permissions for my employees.
+* As a manager i want to grant accesses and permissions for my employees.
 * In the course of time new features will be implemented and the configuration will be updated
 
 ## Modules
