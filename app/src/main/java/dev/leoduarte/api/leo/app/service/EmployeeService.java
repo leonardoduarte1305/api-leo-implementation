@@ -5,12 +5,12 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import dev.leoduarte.api.leo.app.exceptions.EmployeeNotFoundException;
 import dev.leoduarte.api.leo.app.exceptions.ProfileNotFoundException;
+import dev.leoduarte.api.leo.app.mapper.EmployeeMapper;
 import dev.leoduarte.api.leo.app.persistence.EmployeeRepository;
 import dev.leoduarte.api.leo.app.persistence.ProfileRepository;
+import dev.leoduarte.api.leo.app.persistence.entity.Department;
 import dev.leoduarte.api.leo.app.persistence.entity.Employee;
 import dev.leoduarte.api.leo.app.persistence.entity.Profile;
 import dev.leoduarte.model.EmployeeCreation;
@@ -24,16 +24,18 @@ import lombok.extern.slf4j.Slf4j;
 public class EmployeeService {
 
 	private final EmployeeRepository employeeRepository;
+	private final EmployeeMapper employeeMapper;
 	private final ProfileRepository profileRepository;
 	private final DepartmentService departmentService;
-	private final ObjectMapper objectMapper;
 
 	public Employee createEmployee(EmployeeCreation employeeCreation) {
 		Profile profile = getProfile(employeeCreation.getProfileId().longValue());
+		Department department = getDepartment(employeeCreation.getDepartmentId().longValue());
 
-		Employee employee = objectMapper.convertValue(employeeCreation, Employee.class);
+		Employee employee = employeeMapper.toEmployeeEntity(employeeCreation);
 		employee.setProfile(profile);
-		return employeeRepository.saveAndFlush(employee);
+		employee.setDepartment(department);
+		return employeeRepository.save(employee);
 	}
 
 	public void deleteEmployee(Long id) {
@@ -41,8 +43,7 @@ public class EmployeeService {
 	}
 
 	public List<dev.leoduarte.model.Employee> getAll() {
-		return employeeRepository.findAll().stream().map(e ->
-						objectMapper.convertValue(e, dev.leoduarte.model.Employee.class))
+		return employeeRepository.findAll().stream().map(employeeMapper::toEmployeeDto)
 				.collect(Collectors.toList());
 	}
 
@@ -54,12 +55,14 @@ public class EmployeeService {
 		Employee employee = getEmployee(id);
 
 		Long department_id = employeeProperties.getDepartmentId().longValue();
+		Department department = departmentService.getById(department_id);
 
 		Long profile_id = employeeProperties.getProfileId().longValue();
 		Profile profile = getProfile(profile_id);
 
-		employee.setDepartment(departmentService.getById(department_id));
+		employee.setDepartment(department);
 		employee.setName(employeeProperties.getName());
+		employee.setTelephone(employeeProperties.getTelephone());
 		employee.setProfile(profile);
 
 		return employeeRepository.save(employee);
@@ -74,5 +77,9 @@ public class EmployeeService {
 		return profileRepository.findById(id).orElseThrow(
 				() -> new ProfileNotFoundException(
 						String.format("Profile with id: %d does not exist.", id)));
+	}
+
+	private Department getDepartment(Long departmentId) {
+		return departmentService.getById(departmentId);
 	}
 }

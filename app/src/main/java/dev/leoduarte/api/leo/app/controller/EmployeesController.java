@@ -9,9 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import dev.leoduarte.EmployeesApi;
+import dev.leoduarte.api.leo.app.mapper.EmployeeMapper;
 import dev.leoduarte.api.leo.app.service.EmployeeService;
 import dev.leoduarte.model.Employee;
 import dev.leoduarte.model.EmployeeCreation;
@@ -25,13 +24,13 @@ import lombok.extern.slf4j.Slf4j;
 @AllArgsConstructor
 public class EmployeesController implements EmployeesApi {
 	private final EmployeeService employeeService;
-	private final ObjectMapper objectMapper;
+	private final EmployeeMapper employeeMapper;
 
 	@Override
 	public ResponseEntity<Employee> createEmployee(@Valid EmployeeCreation employeeCreation) {
-		Employee employee = objectMapper.convertValue(
-				employeeService.createEmployee(employeeCreation),
-				Employee.class);
+
+		Employee employee = employeeMapper.toEmployeeDto(
+				employeeService.createEmployee(employeeCreation));
 		return ResponseEntity.ok(employee);
 	}
 
@@ -50,9 +49,8 @@ public class EmployeesController implements EmployeesApi {
 
 	@Override
 	public ResponseEntity<Employee> getById(Integer id) {
-		Employee employee = objectMapper.convertValue(
-				employeeService.getById(id.longValue()),
-				Employee.class);
+		Employee employee = employeeMapper.toEmployeeDto(
+				employeeService.getById(id.longValue()));
 		return ResponseEntity.ok(employee);
 	}
 
@@ -66,9 +64,8 @@ public class EmployeesController implements EmployeesApi {
 	@Override
 	public ResponseEntity<Employee> updateEmployee(Integer id,
 			@Valid EmployeeProperties employeeProperties) {
-		Employee employee = objectMapper.convertValue(
-				employeeService.updateEmployee(id.longValue(), employeeProperties),
-				Employee.class);
+		Employee employee = employeeMapper.toEmployeeDto(
+				employeeService.updateEmployee(id.longValue(), employeeProperties));
 		return ResponseEntity.ok(employee);
 	}
 }
