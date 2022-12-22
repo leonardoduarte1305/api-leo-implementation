@@ -8,10 +8,11 @@ pipeline {
         MAVEN = "mvn -B -Dstyle.color=always -Dmaven.test.redirectTestOutputToFile=false"
         MAJOR_VERSION = 1
         MAVEN_OPTS = "-Djansi.force=true -Xmx512m"
-        SONAR_PROJECT_KEY= "api-leo-Implementation"
-        REPO_URL = 'https://github.com/leonardoduarte1305/api-leo-implementation.git'
+        SONAR_PROJECT_KEY = "api-leo-Implementation"
+        PROJECT_VERSION = "1.0.0-SNAPSHOT"
         BRANCH = 'master'
         SLACK_CHANNEL = 'jenkinsbuilds'
+        DOCKERHUB_CREDENTIALS = credentials('dockerHubCredentialId')
     }
     stages {
         stage("CI") {
@@ -42,10 +43,28 @@ pipeline {
                         sh "${MAVEN} install"
                     }
                 }
+                stage("Docker build") {
+                    steps {
+                        sh "docker build -t ${DOCKER_USER}/${JOB_BASE_NAME}:${PROJECT_VERSION} ."
+                    }
+                }
+                stage("Docker login") {
+                    steps {
+                        sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login https://docker.io -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+                    }
+                }
+                stage("Docker push") {
+                    steps {
+                        sh "docker push ${DOCKER_USER}/${JOB_BASE_NAME}:${PROJECT_VERSION}"
+                    }
+                }
             }
         }
     }
-    post("Notifications") {
+    post("Finally") {
+        always {
+            sh "docker logout"
+        }
         success {
             script {
                 slackSend(
