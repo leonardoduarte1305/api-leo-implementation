@@ -16,6 +16,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.Email;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -40,6 +41,7 @@ public class Employee {
 	@Column(length = 14, unique = true)
 	private String cpf;
 
+	@Email
 	@Column(unique = true, name = "email")
 	private String username;
 

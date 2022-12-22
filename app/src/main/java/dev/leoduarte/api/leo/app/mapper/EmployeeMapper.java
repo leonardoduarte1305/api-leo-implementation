@@ -17,6 +17,10 @@ public interface EmployeeMapper {
 	@Mapping(target = "employeeId", source = "employee_id")
 	Employee toEmployeeDto(dev.leoduarte.api.leo.app.persistence.entity.Employee employeeEntity);
 
-
+	@Mapping(target = "employee_id", ignore = true)
+	@Mapping(target = "username", source = "email")
+	@Mapping(target = "registerDate", ignore = true)
+	@Mapping(target = "department", ignore = true)
+	@Mapping(target = "profile", ignore = true)
 	dev.leoduarte.api.leo.app.persistence.entity.Employee toEmployeeEntity(EmployeeCreation employeeCreation);
 }
