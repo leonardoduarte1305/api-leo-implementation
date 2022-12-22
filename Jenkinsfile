@@ -50,7 +50,7 @@ pipeline {
                 }
                 stage("Docker login") {
                     steps {
-                        sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login https://docker.io -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+                        sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login https://index.docker.io/v1/ -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
                     }
                 }
                 stage("Docker push") {
