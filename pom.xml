@@ -38,13 +38,14 @@
 
 	<distributionManagement>
 		<repository>
-			<id>nexus-compose</id>
-			<name>Api-Leo Maven Repository</name>
-			<url>http://192.168.0.239:8081/repository/nexus-compose/</url>
+			<id>nexus-dockercompose-maven-releases</id>
+			<name>Docker-compose Maven Releases Repository</name>
+			<url>http://localhost:8081/repository/nexus-dockercompose-maven-releases/</url>
 		</repository>
 		<snapshotRepository>
-			<id>nexus-compose-snapshot</id>
-			<url>http://192.168.0.239:8081/repository/nexus-compose-snapshot</url>
+			<id>nexus-dockercompose-maven-snapshots</id>
+			<name>Docker-compose Maven Snapshots Repository</name>
+			<url>http://localhost:8081/repository/nexus-dockercompose-maven-snapshots/</url>
 		</snapshotRepository>
 	</distributionManagement>
 
@@ -59,8 +60,10 @@
 		<maven.compiler.target>${java.version}</maven.compiler.target>
 		<org.codehaus.mojo.tidy.version>1.1.0</org.codehaus.mojo.tidy.version>
 		<sonar-maven-plugin.version>3.9.1.2184</sonar-maven-plugin.version>
+		<maven.deploy.plugin.version>3.1.0</maven.deploy.plugin.version>
 
 		<org.springframework.boot.version>2.7.4</org.springframework.boot.version>
+		<org.springframework.version>6.0.4</org.springframework.version>
 		<jacoco.maven.plugin.version>0.8.8</jacoco.maven.plugin.version>
 		<mapstruct.version>1.5.3.Final</mapstruct.version>
 		<org.projectlombok.version>1.18.24</org.projectlombok.version>
@@ -98,6 +101,12 @@
 				<type>pom</type>
 				<version>${org.springframework.boot.version}</version>
 				<scope>import</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-context</artifactId>
+				<version>${org.springframework.version}</version>
+				<scope>provided</scope>
 			</dependency>
 
 			<!-- Third party Dependencies -->
@@ -238,6 +247,20 @@
 					<groupId>org.sonarsource.scanner.maven</groupId>
 					<artifactId>sonar-maven-plugin</artifactId>
 					<version>${sonar-maven-plugin.version}</version>
+				</plugin>
+
+				<plugin>
+					<artifactId>maven-deploy-plugin</artifactId>
+					<version>${maven.deploy.plugin.version}</version>
+					<executions>
+						<execution>
+							<id>default-deploy</id>
+							<phase>deploy</phase>
+							<goals>
+								<goal>deploy</goal>
+							</goals>
+						</execution>
+					</executions>
 				</plugin>
 			</plugins>
 		</pluginManagement>
